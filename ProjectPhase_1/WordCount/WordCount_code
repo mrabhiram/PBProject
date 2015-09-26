@@ -1,0 +1,6 @@
+val textFile = spark.textFile("sample_tweets.txt")
+val counts = textFile.flatMap(line => line.split(" "))
+                 .map(word => (word, 1))
+                 .reduceByKey(_ + _)
+ 
+counts.saveAsTextFile("tweets_output")
